@@ -5,7 +5,7 @@ from pathlib import Path
 
 from skbuild import setup
 
-MODULE_DIR = Path(__file__).parent / "src" / "piper"
+MODULE_DIR = Path(__file__).parent / "src" / "piper_phonemize"
 PIPER_DATA_FILES = ["py.typed", "espeakbridge.pyi"]
 ESPEAK_NG_DATA_DIR = MODULE_DIR / "espeak-ng-data"
 ESPEAK_NG_DATA_FILES = [
@@ -23,14 +23,14 @@ TASHKEEL_DATA_FILES = [
 ]
 
 setup(
-    name="piper-tts",
-    version="1.4.1",
-    description="Fast and local neural text-to-speech engine",
+    name="piper-phonemize",
+    version="2.0.0",
+    description="Fast text-to-phoneme conversion using espeak-ng",
     url="http://github.com/OHF-voice/piper1-gpl",
     license="GPL-3.0-or-later",
     author="The Home Assistant Authors",
     author_email="hello@home-assistant.io",
-    keywords=["home", "assistant", "tts", "text-to-speech"],
+    keywords=["phonemize", "phonemes", "espeak", "tts", "text-to-speech"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -46,34 +46,8 @@ setup(
         "onnxruntime>=1,<2",
     ],
     extras_require={
-        "train": [
-            "torch>=2,<3",
-            "lightning>=2,<3",
-            "tensorboard>=2,<3",
-            "tensorboardX>=2,<3",
-            "jsonargparse[signatures]>=4.27.7",
-            "pathvalidate>=3,<4",
-            "onnx>=1,<2",
-            "pysilero-vad>=2.1,<3",
-            "cython>=3,<4",
-            "librosa<1",
-        ],
         "dev": [
-            "black==24.8.0",
-            "flake8==7.1.1",
-            "mypy==1.14.0",
-            "pylint==3.2.7",
-            "pytest==8.3.4",
-            "build==1.2.2",
-            "scikit-build<1",
-            "cmake>=3.18,<4",
-            "ninja>=1,<2",
-        ],
-        "http": [
-            "flask>=3,<4",
-        ],
-        "alignment": [
-            "onnx>=1,<2",
+            "pytest>=8,<9",
         ],
         "zh": [
             "g2pW>=0.1.1,<1",
@@ -83,21 +57,16 @@ setup(
             "requests>=2,<3",
         ],
     },
-    packages=["piper", "piper.tashkeel", "piper.train"],
+    packages=["piper_phonemize", "piper_phonemize.tashkeel"],
     package_dir={"": "src"},
     include_package_data=True,
     package_data={
-        "piper": [
+        "piper_phonemize": [
             str(p)
             for p in itertools.chain(
                 PIPER_DATA_FILES, ESPEAK_NG_DATA_FILES, TASHKEEL_DATA_FILES
             )
         ],
     },
-    cmake_install_dir="src/piper",
-    entry_points={
-        "console_scripts": [
-            "piper = piper.__main__:main",
-        ]
-    },
+    cmake_install_dir="src/piper_phonemize",
 )

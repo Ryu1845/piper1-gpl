@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  build_wheels:
+  test:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -22,10 +22,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Piper
+      - name: Install piper-phonemize
         run: |
-          script/setup --dev --zh --torch-cpu
-          script/dev_build
+          pip install -e ".[dev]"
 
       - name: Run tests
-        run: script/test
+        run: python -m pytest tests/test_espeak_phonemizer.py tests/test_tashkeel.py -v

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from piper.phonemize_chinese import ChinesePhonemizer, phonemes_to_ids
+from piper_phonemize.phonemize_chinese import ChinesePhonemizer, phonemes_to_ids
 
 PAD_ID = 0
 BOS_ID = 1

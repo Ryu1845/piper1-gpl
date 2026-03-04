@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "v*.*.*" # e.g. v1.2.3
+      - "v*.*.*" # e.g. v2.0.0
 
 jobs:
   version:
@@ -135,7 +135,7 @@ jobs:
       - name: Install wheel
         run: |
           python -m pip install pytest
-          python -m pip install --extra-index-url "https://download.pytorch.org/whl/cpu" --find-links dist/ "piper-tts[zh]==${{ needs.version.outputs.file_ver }}"
+          python -m pip install --extra-index-url "https://download.pytorch.org/whl/cpu" --find-links dist/ "piper-phonemize[zh]==${{ needs.version.outputs.file_ver }}"
 
       - name: Test wheel
         run: |
@@ -154,7 +154,7 @@ jobs:
           TAG: ${{ needs.version.outputs.tag }}
         run: |
           import os, sys, re, pathlib
-          ver = os.environ["TAG"]                          # e.g., 1.0.2
+          ver = os.environ["TAG"]                          # e.g., 2.0.0
           chlog_path = pathlib.Path("CHANGELOG.md")
           if not chlog_path.exists():
               print("CHANGELOG.md not found", file=sys.stderr)
@@ -167,9 +167,9 @@ jobs:
               if not s.startswith("##"):
                   return False
               s = s[2:].strip()                  # drop "##"
-              s = s.strip("[]")                  # allow [1.0.2]
+              s = s.strip("[]")                  # allow [2.0.0]
               s = re.sub(r"\s*-\s*.*$", "", s)   # drop " - date"
-              s = s.lstrip("v")                  # allow v1.0.2
+              s = s.lstrip("v")                  # allow v2.0.0
               return s == ver
 
           start_idx = None

@@ -1,4 +1,4 @@
-from piper.phonemize_espeak import EspeakPhonemizer
+from piper_phonemize.phonemize_espeak import EspeakPhonemizer
 
 
 def test_phonemize() -> None:

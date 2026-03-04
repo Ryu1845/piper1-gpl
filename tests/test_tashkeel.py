@@ -7,7 +7,7 @@ import unicodedata
 
 import pytest
 
-from piper.tashkeel import ARABIC_DIACRITICS, TashkeelDiacritizer
+from piper_phonemize.tashkeel import ARABIC_DIACRITICS, TashkeelDiacritizer
 
 
 @pytest.fixture(name="diacritizer", scope="session")
