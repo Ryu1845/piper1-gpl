@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.1 - 2026-07-11
+
+### Fixed
+
+- CI: tests now run on every push to `main` and use a non-editable
+  install so the espeakbridge extension is actually built
+- Release pipeline: skip the Chinese phonemizer test on Windows
+  (g2pW does not work there); other platforms still run it
+
 ## 2.0.0 - 2026-07-11
 
 Complete rewrite of the project as **piper-phonemize**, a text-to-phoneme
