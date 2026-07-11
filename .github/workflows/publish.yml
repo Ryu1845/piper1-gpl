@@ -138,8 +138,15 @@ jobs:
           python -m pip install --extra-index-url "https://download.pytorch.org/whl/cpu" --find-links dist/ "piper-phonemize[zh]==${{ needs.version.outputs.file_ver }}"
 
       - name: Test wheel
+        if: runner.os != 'Windows'
         run: |
           python -m pytest tests
+
+      - name: Test wheel (Windows, no Chinese)
+        if: runner.os == 'Windows'
+        # g2pW does not work on Windows; cibuildwheel skips this test too
+        run: |
+          python -m pytest --ignore tests/test_chinese_phonemizer.py tests
 
   changelog:
     needs: [version, build]
