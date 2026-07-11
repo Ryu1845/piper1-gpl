@@ -24,7 +24,7 @@ TASHKEEL_DATA_FILES = [
 
 setup(
     name="piper-phonemize",
-    version="2.0.1",
+    version="2.0.2",
     description="Fast text-to-phoneme conversion using espeak-ng",
     url="http://github.com/OHF-voice/piper1-gpl",
     license="GPL-3.0-or-later",
@@ -55,6 +55,9 @@ setup(
             "unicode-rbnf>=2.4.0,<3",
             "torch>=2,<3",
             "requests>=2,<3",
+            # torch wheels for Intel macOS stopped at 2.2.2, which was built
+            # against NumPy 1.x; tensor.numpy() breaks under NumPy 2
+            'numpy<2; sys_platform == "darwin" and platform_machine == "x86_64"',
         ],
     },
     packages=["piper_phonemize", "piper_phonemize.tashkeel"],

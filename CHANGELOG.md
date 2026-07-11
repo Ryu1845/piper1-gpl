@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.2 - 2026-07-11
+
+### Fixed
+
+- `zh` extra: pin `numpy<2` on Intel macOS, where torch wheels stopped at
+  2.2.2 (built against NumPy 1.x) and `tensor.numpy()` fails under NumPy 2
+
 ## 2.0.1 - 2026-07-11
 
 ### Fixed
