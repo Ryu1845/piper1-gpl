@@ -24,7 +24,7 @@ TASHKEEL_DATA_FILES = [
 
 setup(
     name="piper-phonemize",
-    version="2.0.2",
+    version="2.0.3",
     description="Fast text-to-phoneme conversion using espeak-ng",
     url="http://github.com/OHF-voice/piper1-gpl",
     license="GPL-3.0-or-later",

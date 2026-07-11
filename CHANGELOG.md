@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.3 - 2026-07-11
+
+### Fixed
+
+- Chinese phonemizer: load g2pW batches in the main process instead of
+  torch DataLoader worker subprocesses, which were slow to start and
+  lingered after exit (hanging CI jobs on macOS)
+
 ## 2.0.2 - 2026-07-11
 
 ### Fixed

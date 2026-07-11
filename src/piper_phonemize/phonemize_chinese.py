@@ -212,6 +212,11 @@ class ChinesePhonemizer:
         self.g2p = G2PWConverter(
             model_dir=str(model_dir), style="pinyin", enable_non_tradional_chinese=True
         )
+        # Load data in the main process: g2pW's constructor treats
+        # num_workers=0 as falsy and substitutes its config default, and the
+        # spawned DataLoader workers are slow to start and linger afterwards
+        # (hanging CI jobs on macOS/Windows)
+        self.g2p.num_workers = 0
         self.number_engine = RbnfEngine.for_language("zh")
 
     def phonemize(self, text: str) -> list[list[str]]:
