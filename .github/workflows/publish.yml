@@ -1,5 +1,5 @@
 ---
-name: Release (PyPI + GitHub)
+name: Release (GitHub)
 
 on:
   workflow_dispatch:
@@ -208,28 +208,8 @@ jobs:
           name: release-notes
           path: RELEASE_NOTES.md
 
-  publish:
-    needs: [build, test, changelog]
-    runs-on: ubuntu-latest
-    environment: pypi
-    permissions:
-      id-token: write # required for PyPI Trusted Publishing (OIDC)
-      contents: read
-    steps:
-      - name: Download all dists
-        uses: actions/download-artifact@v4
-        with:
-          pattern: dist-*
-          merge-multiple: true
-          path: dist
-
-      - name: Publish to PyPI via OIDC
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          verbose: true
-
   github_release:
-    needs: [build, test, changelog, publish]
+    needs: [build, test, changelog]
     runs-on: ubuntu-latest
     permissions:
       contents: write
